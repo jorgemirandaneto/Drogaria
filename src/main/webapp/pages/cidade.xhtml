@@ -13,13 +13,14 @@
 	<h:form>
 		<p:panel header="Clientes - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true">
+				paginator="true" value="#{estadoBean.estados}">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
 					</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Nome">
+					<h:outputText value="#{estado}"/>
 				</p:column>
 				<p:column headerText="Estado">
 				</p:column>
