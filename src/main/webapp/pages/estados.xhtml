@@ -46,8 +46,7 @@
 
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{estadoBean.editar}"
-						update=":formCadastro:painel"
-						oncomplete="PF('dialogo').show();">
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
 						<f:attribute name="estadoSelecionado" value="#{estado}" />
 					</p:commandButton>
 				</p:column>
@@ -62,8 +61,8 @@
 
 		</p:panel>
 	</h:form>
-
-	<p:dialog header="Estado - Cadastro" widgetVar="dialogo"
+    //Caixa de dialogo
+    	<p:dialog header="Estado - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid columns="2" id="painel">
