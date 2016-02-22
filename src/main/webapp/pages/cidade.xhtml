@@ -13,16 +13,20 @@
 	<h:form>
 		<p:panel header="Clientes - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{estadoBean.estados}">
+				paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
+					<p:commandButton value="Novo" actionListener="#{cidadeBean.novo}"
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Nome">
-					<h:outputText value="#{estado}"/>
+				<p:column headerText="Nome" sortBy="#{cidade.nome}"
+					filterBy="#{cidade.nome}">
+					<h:outputText value="#{cidade.nome}" />
 				</p:column>
-				<p:column headerText="Estado">
+				<p:column headerText="Estado" sortBy="#{cidade.estado.nome}"
+					filterBy="#{cidade.estado.nome}">
+					<h:outputText value="#{cidade.estado.nome}" />
 				</p:column>
 
 			</p:dataTable>
@@ -31,8 +35,8 @@
 
 	<p:dialog header="Cidade - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
+		<h:form id="formCadastro">
+			<h:panelGrid columns="2" id="painel">
 				<p:outputLabel value="Nome" />
 				<p:inputText maxlength="50" size="30" />
 
@@ -48,9 +52,5 @@
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
-
-
-
-
 </h:body>
 </html>
