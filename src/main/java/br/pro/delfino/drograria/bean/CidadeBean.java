@@ -10,7 +10,9 @@ import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
 
 import br.pro.delfino.drogaria.dao.CidadeDAO;
+import br.pro.delfino.drogaria.dao.EstadoDAO;
 import br.pro.delfino.drograria.domain.Cidade;
+import br.pro.delfino.drograria.domain.Estado;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -18,6 +20,7 @@ import br.pro.delfino.drograria.domain.Cidade;
 public class CidadeBean implements Serializable {
 	private Cidade cidade;
 	private List<Cidade> cidades;
+	private List<Estado> estados;
 
 	public Cidade getCidade() {
 		return cidade;
@@ -35,10 +38,14 @@ public class CidadeBean implements Serializable {
 		this.cidades = cidades;
 	}
 
-	public void novo(){
-		cidade = new Cidade();
+	public List<Estado> getEstados() {
+		return estados;
 	}
-	
+
+	public void setEstados(List<Estado> estados) {
+		this.estados = estados;
+	}
+
 	@PostConstruct
 	public void listar() {
 		try {
@@ -49,7 +56,36 @@ public class CidadeBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
 
+	public void novo() {
+		try {
+			cidade = new Cidade();
+
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao gerar uma nova cidade");
+			erro.printStackTrace();
+		}
+	}
+
+	public void salvar() {
+		try {
+			CidadeDAO cidadeDAO = new CidadeDAO();
+			cidadeDAO.merge(cidade);
+
+			cidade = new Cidade();
+
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar();
+
+			cidades = cidadeDAO.listar();
+
+			Messages.addGlobalInfo("Sucesso ao salvar");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao salvar");
+			erro.printStackTrace();
+		}
+	}
 
 }
