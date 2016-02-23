@@ -11,7 +11,7 @@
 <h:body>
 	<p:growl id="mensagem" />
 	<h:form id="formListagem">
-		<p:panel id="painel" header="Cidades - Listagem">
+		<p:panel id="tabela" header="Cidades - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="5">
 				<f:facet name="header">
@@ -33,8 +33,24 @@
 				</p:column>
 
 				<p:column headerText="Opções">
+						<p:commandButton icon="ui-icon-trash"
+						actionListener="#{cidadeBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação" message="Deseja deletar o cidade?"
+							icon="ui-icon-alert" />
+
+						<f:attribute name="cidadeSelecionada" value="#{cidade}" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true" closable="false">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			
 		</p:panel>
 	</h:form>
 
@@ -59,7 +75,7 @@
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
 					actionListener="#{cidadeBean.salvar}"
-					update=":mensagem :formListagem:painel" />
+					update=":mensagem :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
