@@ -33,7 +33,7 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-						<p:commandButton icon="ui-icon-trash"
+					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{cidadeBean.excluir}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação" message="Deseja deletar o cidade?"
@@ -41,23 +41,23 @@
 
 						<f:attribute name="cidadeSelecionada" value="#{cidade}" />
 					</p:commandButton>
-					
+
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{cidadeBean.editar}"
 						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
 						<f:attribute name="cidadeSelecionada" value="#{cidade}" />
 					</p:commandButton>
-					
+
 				</p:column>
 			</p:dataTable>
-			
+
 			<p:confirmDialog global="true" closable="false">
 				<p:commandButton value="Sim" type="button"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="Não" type="button"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
-			
+
 		</p:panel>
 	</h:form>
 
@@ -65,13 +65,15 @@
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
-				<p:outputLabel value="Nome:" />
-				<p:inputText maxlength="50" size="30"
-					value="#{cidadeBean.cidade.nome}" />
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" maxlength="50" size="30"
+					value="#{cidadeBean.cidade.nome}" required="true"
+					requiredMessage="Campo NOME obrigatório" />
 
-				<p:outputLabel value="Estado:" />
-				<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}"
-					converter="omnifaces.SelectItemsConverter">
+				<p:outputLabel for="estado" value="Estado:" />
+				<p:selectOneMenu id="estado"  filter="true" value="#{cidadeBean.cidade.estado}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Campo ESTADO obrigatório">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um estado" />
 					<f:selectItems value="#{estadoBean.estados}" var="estado"
@@ -82,7 +84,7 @@
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
 					actionListener="#{cidadeBean.salvar}"
-					update=":mensagem :formListagem:tabela" />
+					update=":mensagem :formCadastro:painel" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
