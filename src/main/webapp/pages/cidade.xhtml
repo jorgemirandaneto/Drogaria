@@ -17,7 +17,11 @@
 				<f:facet name="header">
 					<p:commandButton value="Novo" actionListener="#{cidadeBean.novo}"
 						oncomplete="PF('dialogo').show();"
-						update=":mensagem :formCadastro:painel" />
+						update=":mensagem :formCadastro:painel">
+
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Nome" filterBy="#{cidade.nome}"
@@ -46,6 +50,8 @@
 						actionListener="#{cidadeBean.editar}"
 						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
 						<f:attribute name="cidadeSelecionada" value="#{cidade}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 
 				</p:column>
@@ -71,7 +77,8 @@
 					requiredMessage="Campo NOME obrigatório" />
 
 				<p:outputLabel for="estado" value="Estado:" />
-				<p:selectOneMenu id="estado"  filter="true" value="#{cidadeBean.cidade.estado}"
+				<p:selectOneMenu id="estado" filter="true"
+					value="#{cidadeBean.cidade.estado}"
 					converter="omnifaces.SelectItemsConverter" required="true"
 					requiredMessage="Campo ESTADO obrigatório">
 					<f:selectItem noSelectionOption="true"
