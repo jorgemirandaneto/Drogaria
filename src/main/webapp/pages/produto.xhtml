@@ -12,18 +12,25 @@
 <h:body>
 	<h:form>
 		<p:panel header="Produto - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado">
+			<p:dataTable emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{produtoBean.produtos}" var="produto" >
+
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
 					</p:commandButton>
 				</f:facet>
+
 				<p:column headerText="Descrição">
+					<p:outputLabel value="#{produto.descricao}" />
 				</p:column>
 				<p:column headerText="Quantidade">
+					<p:outputLabel value="#{produto.quantidade}" />
 				</p:column>
 				<p:column headerText="Preço">
+					<p:outputLabel value="#{produto.preco}" />
 				</p:column>
 				<p:column headerText="Fabricante">
+				<p:outputLabel value="#{produto.fabricante.descricao}" />
 				</p:column>
 				<p:column headerText="Opções">
 				</p:column>
@@ -31,7 +38,8 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Cadastro - Produto" widgetVar="dialogo" closable="false" modal="true" resizable="false" draggable="false" >
+	<p:dialog header="Cadastro - Produto" widgetVar="dialogo"
+		closable="false" modal="true" resizable="false" draggable="false">
 		<h:form>
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Descrição:" />
@@ -42,21 +50,22 @@
 
 				<p:outputLabel value="Preço:" />
 				<p:inputText />
-				
-				<p:outputLabel value="Fabricante:"/>	
+
+				<p:outputLabel value="Fabricante:" />
 				<p:selectOneMenu filter="true">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um fabricante" />
 				</p:selectOneMenu>
-				
+
 				<p:commandButton value="Salvar">
 				</p:commandButton>
-					
+
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
-				</p:commandButton>	
+				</p:commandButton>
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
 
 </h:body>
 </html>
+

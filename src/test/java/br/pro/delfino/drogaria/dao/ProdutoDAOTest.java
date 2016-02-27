@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.pro.delfino.drograria.domain.Fabricante;
-import br.pro.delfino.drograria.domain.Produto;
+import br.pro.delfino.drogaria.domain.Fabricante;
+import br.pro.delfino.drogaria.domain.Produto;
 
 
 public class ProdutoDAOTest {

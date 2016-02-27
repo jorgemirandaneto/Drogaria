@@ -7,10 +7,10 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.pro.delfino.drograria.domain.Cidade;
-import br.pro.delfino.drograria.domain.Cliente;
-import br.pro.delfino.drograria.domain.Estado;
-import br.pro.delfino.drograria.domain.Pessoa;
+import br.pro.delfino.drogaria.domain.Cidade;
+import br.pro.delfino.drogaria.domain.Cliente;
+import br.pro.delfino.drogaria.domain.Estado;
+import br.pro.delfino.drogaria.domain.Pessoa;
 
 public class CidadeDAOTest {
 	@Test

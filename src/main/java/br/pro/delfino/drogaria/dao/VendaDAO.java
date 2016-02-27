@@ -1,6 +1,6 @@
 package br.pro.delfino.drogaria.dao;
 
-import br.pro.delfino.drograria.domain.Venda;
+import br.pro.delfino.drogaria.domain.Venda;
 
 public class VendaDAO extends GenericDAO<Venda> {
 

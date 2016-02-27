@@ -5,8 +5,8 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.pro.delfino.drograria.domain.Pessoa;
-import br.pro.delfino.drograria.domain.Usuario;
+import br.pro.delfino.drogaria.domain.Pessoa;
+import br.pro.delfino.drogaria.domain.Usuario;
 
 
 public class UsuarioDAOTest {

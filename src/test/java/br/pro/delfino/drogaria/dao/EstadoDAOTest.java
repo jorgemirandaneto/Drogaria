@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.pro.delfino.drograria.domain.Estado;
+import br.pro.delfino.drogaria.domain.Estado;
 
 public class EstadoDAOTest {
 	@Test

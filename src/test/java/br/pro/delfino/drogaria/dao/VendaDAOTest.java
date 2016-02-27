@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 
 import org.junit.Test;
 
-import br.pro.delfino.drograria.domain.Cliente;
-import br.pro.delfino.drograria.domain.Funcionario;
-import br.pro.delfino.drograria.domain.Venda;
+import br.pro.delfino.drogaria.domain.Cliente;
+import br.pro.delfino.drogaria.domain.Funcionario;
+import br.pro.delfino.drogaria.domain.Venda;
 
 public class VendaDAOTest {
 

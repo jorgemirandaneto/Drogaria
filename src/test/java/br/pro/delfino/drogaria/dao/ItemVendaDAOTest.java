@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import br.pro.delfino.drograria.domain.ItemVenda;
-import br.pro.delfino.drograria.domain.Produto;
-import br.pro.delfino.drograria.domain.Venda;
+import br.pro.delfino.drogaria.domain.ItemVenda;
+import br.pro.delfino.drogaria.domain.Produto;
+import br.pro.delfino.drogaria.domain.Venda;
 
 public class ItemVendaDAOTest {
 	
