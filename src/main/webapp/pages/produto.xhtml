@@ -11,8 +11,8 @@
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
-	<h:form>
-		<p:panel header="Produto - Listagem">
+	<h:form id="formListagem">
+		<p:panel id="tabela" header="Produto - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
 				paginator="true" value="#{produtoBean.produtos}" var="produto">
 
@@ -38,9 +38,35 @@
 					<p:outputLabel value="#{produto.fabricante.descricao}" />
 				</p:column>
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash"
+						update=":mensagem :formListagem:tabela"
+						actionListener="#{produtobean.excluir}">
+						<p:confirm header="Confirmação" message="Deseja deletar a cidade?"
+							icon="ui-icon-alert" />
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+
+
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{produtoBean.editar}"
+						update=":mensagem :formCadastro:painel"
+						oncomplete="PF('dialogo').show();">
+
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
+		<p:confirmDialog global="true" closable="false">
+			<p:commandButton value="Sim" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		</p:confirmDialog>
+
 	</h:form>
 
 	<p:dialog header="Cadastro - Produto" widgetVar="dialogo"
@@ -48,10 +74,10 @@
 		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel value="Descrição:" />
-				<p:inputText />
+				<p:inputText value="#{produtoBean.produto.descricao}" />
 
 				<p:outputLabel value="Quantidade:" />
-				<p:inputText />
+				<p:inputText value="#{produtoBean.produto.quantidade}" />
 
 				<p:outputLabel value="Preço:" />
 				<p:inputText />
@@ -59,14 +85,15 @@
 				<p:outputLabel value="Fabricante:" />
 				<p:selectOneMenu filter="true"
 					value="#{produtoBean.produto.fabricante}">
-					<f:selectItem noSelectionOption="true" 
+					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um fabricante" />
 					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricante"
-					itemValue="#{fabricante}"	itemLabel="#{fabricante.descricao}" />
+						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
 
 				<p:commandButton value="Salvar"
-					actionListener="#{produtoBean.salvar}" update="formCadastro:painel">
+					actionListener="#{produtoBean.salvar}"
+					update=":mensagem formCadastro:painel">
 				</p:commandButton>
 
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">

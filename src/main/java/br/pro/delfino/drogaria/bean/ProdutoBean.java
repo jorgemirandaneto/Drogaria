@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -22,7 +23,6 @@ public class ProdutoBean implements Serializable {
 	Produto produto;
 	List<Produto> produtos;
 	List<Fabricante> fabricantes;
-	
 
 	public Produto getProduto() {
 		return produto;
@@ -75,16 +75,53 @@ public class ProdutoBean implements Serializable {
 		try {
 
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar();
+			produtoDAO.merge(produto);
 
 			produto = new Produto();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
 
-		} catch (Exception erro) {
+			produtos = produtoDAO.listar();
+			
+			
+			Messages.addGlobalInfo("Produto salvo com sucesso");
+		} catch (RuntimeException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError("Erro ao salvar produto");
+		}
+
+	}
+
+	public void excluir(ActionEvent evento) {
+
+		try {
+			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtoDAO.excluir(produto);
+
+			produtos = produtoDAO.listar();
+
+			Messages.addGlobalInfo("Sucesso ao excluir produto");
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			Messages.addGlobalError("Erro ao excluir produto");
+		}
+
+	}
+
+	public void editar(ActionEvent evento) {
+
+		try {
+			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+
+			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtos = produtoDAO.listar();
+
+		} catch (RuntimeException erro) {
+			erro.printStackTrace();
+			Messages.addGlobalInfo("Erro ao editar produto");
 		}
 
 	}
