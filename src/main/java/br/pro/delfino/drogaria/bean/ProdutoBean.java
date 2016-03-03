@@ -116,8 +116,8 @@ public class ProdutoBean implements Serializable {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
-			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtos = produtoDAO.listar();
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricantes = fabricanteDAO.listar();
 
 		} catch (RuntimeException erro) {
 			erro.printStackTrace();

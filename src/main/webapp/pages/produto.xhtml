@@ -85,10 +85,13 @@
 
 				<p:outputLabel value="Quantidade: *" />
 				<p:inputText value="#{produtoBean.produto.quantidade}"
-					required="true" requiredMessage="Quantidade não preenchida" />
+					required="true" requiredMessage="Quantidade não preenchida"
+					converterMessage="Valor invalido do campo Quantidade" />
 
 				<p:outputLabel value="Preço: *" />
-				<p:inputText required="true" requiredMessage="Preço não preenchido" />
+				<p:inputText value="#{produtoBean.produto.preco}" required="true"
+					requiredMessage="Preço não preenchido"
+					converterMessage="Valor invalido do campo Preço" />
 
 				<p:outputLabel value="Fabricante: *" />
 				<p:selectOneMenu filter="true"
@@ -105,7 +108,7 @@
 
 				<p:commandButton value="Salvar"
 					actionListener="#{produtoBean.salvar}"
-					update=":mensagem formCadastro:painel">
+					update=":mensagem formCadastro:painel :formListagem:tabela">
 				</p:commandButton>
 
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
