@@ -86,12 +86,18 @@
 				<p:outputLabel value="Quantidade: *" />
 				<p:inputText value="#{produtoBean.produto.quantidade}"
 					required="true" requiredMessage="Quantidade não preenchida"
-					converterMessage="Valor invalido do campo Quantidade" />
+					converterMessage="Valor invalido do campo Quantidade"
+					validatorMessage="Coloque um valor para o campo quantidade entre 0 e 1000">
+					<f:validateLongRange minimum="0" maximum="1000" />
+				</p:inputText>
 
 				<p:outputLabel value="Preço: *" />
 				<p:inputText value="#{produtoBean.produto.preco}" required="true"
 					requiredMessage="Preço não preenchido"
-					converterMessage="Valor invalido do campo Preço" />
+					converterMessage="Valor invalido do campo Preço"
+					validatorMessage="Coloque um um valor entre 0.01 e 9999.99">
+					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
+				</p:inputText>
 
 				<p:outputLabel value="Fabricante: *" />
 				<p:selectOneMenu filter="true"
