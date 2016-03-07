@@ -11,10 +11,12 @@
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
+
 	<h:form id="formListagem">
-		<p:panel id="tabela" header="Produto - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{produtoBean.produtos}" var="produto">
+		<p:panel header="Produto - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{produtoBean.produtos}" var="produto"
+				rows="5">
 
 				<f:facet name="header">
 					<p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
@@ -27,16 +29,22 @@
 
 				<p:column headerText="Descrição">
 					<p:outputLabel value="#{produto.descricao}" />
+
 				</p:column>
 				<p:column headerText="Quantidade">
 					<p:outputLabel value="#{produto.quantidade}" />
+
 				</p:column>
 				<p:column headerText="Preço">
-					<p:outputLabel value="#{produto.preco}" />
+					<p:outputLabel value="#{produto.preco}" >
+						<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+					</p:outputLabel>
+
 				</p:column>
 				<p:column headerText="Fabricante">
 					<p:outputLabel value="#{produto.fabricante.descricao}" />
 				</p:column>
+
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
 						update=":mensagem :formListagem:tabela"
@@ -44,8 +52,6 @@
 						<p:confirm header="Confirmação" message="Deseja deletar a cidade?"
 							icon="ui-icon-alert" />
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
-
-
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
@@ -58,6 +64,7 @@
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 				</p:column>
+
 			</p:dataTable>
 		</p:panel>
 		<p:confirmDialog global="true" closable="false">
@@ -73,27 +80,45 @@
 		closable="false" modal="true" resizable="false" draggable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
-				<p:outputLabel value="Descrição:" for="descricao"/>
-				<p:inputText id="descricao" value="#{produtoBean.produto.descricao}" />
 
-				<p:outputLabel for="quantidade" value="Quantidade:" />
-				<p:inputText id="quantidade" value="#{produtoBean.produto.quantidade}" />
+				<p:outputLabel value="Descrição: *" />
+				<p:inputText value="#{produtoBean.produto.descricao}"
+					required="true" requiredMessage="Descrição não preenchida" />
 
-				<p:outputLabel for="preco" value="Preço:" />
-				<p:inputText id="preco" />
+				<p:outputLabel value="Quantidade: *" />
+				<p:inputText value="#{produtoBean.produto.quantidade}"
+					required="true" requiredMessage="Quantidade não preenchida"
+					converterMessage="Valor invalido do campo Quantidade"
+					validatorMessage="Coloque um valor para o campo quantidade entre 0 e 1000">
+					<f:validateLongRange minimum="0" maximum="1000" />
+				</p:inputText>
 
-				<p:outputLabel for="fabricante" value="Fabricante:" />
-				<p:selectOneMenu id="fabricante" filter="true"
-					value="#{produtoBean.produto.fabricante}">
+				<p:outputLabel value="Preço: *" />
+				<p:inputText value="#{produtoBean.produto.preco}" required="true"
+					requiredMessage="Preço não preenchido"
+					converterMessage="Valor invalido do campo Preço"
+					validatorMessage="Coloque um um valor entre 0.01 e 9999.99">
+					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
+					
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+				</p:inputText>
+
+				<p:outputLabel value="Fabricante: *" />
+				<p:selectOneMenu filter="true"
+					value="#{produtoBean.produto.fabricante}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Fabricante não preenchido">
+
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um fabricante" />
+
 					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricante"
 						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
 
 				<p:commandButton value="Salvar"
 					actionListener="#{produtoBean.salvar}"
-					update=":mensagem formCadastro:painel">
+					update=":mensagem formCadastro:painel :formListagem:tabela">
 				</p:commandButton>
 
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
