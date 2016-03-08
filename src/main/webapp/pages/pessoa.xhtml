@@ -14,11 +14,11 @@
 		<p:panel header="Listagem - Pessoa">
 			<p:dataTable emptyMessage="Nenhum registro">
 				<f:facet name="header">
-					<p:commandButton value="Novo">
-					
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
+
 					</p:commandButton>
 				</f:facet>
-				
+
 				<p:column headerText="Nome" sortBy="true" filterBy="true">
 					<p:outputLabel>
 					</p:outputLabel>
@@ -33,7 +33,7 @@
 					<p:outputLabel>
 					</p:outputLabel>
 				</p:column>
-			
+
 				<p:column headerText="Opções">
 					<p:outputLabel>
 					</p:outputLabel>
@@ -44,5 +44,60 @@
 
 	</h:form>
 
+
+	<p:dialog widgetVar="dialogo" closable="false" modal="true" resizable="false" draggable="false" >
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="CPF" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="RG" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Endereço" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Número" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Bairro" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Cep" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="complemento" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Telefone" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Celular" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Email" />
+				<p:inputText>
+				</p:inputText>
+
+				<p:outputLabel value="Cidade" />
+				<p:selectOneMenu filter="true">
+					<f:selectItem />
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>
