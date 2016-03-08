@@ -10,33 +10,36 @@
 	<title>Pessoa</title>
 </h:head>
 <h:body>
-	<h:form>
+
+	<p:growl id="mensagem" />
+
+	<h:form id="formListagem">
 		<p:panel header="Listagem - Pessoa">
-			<p:dataTable emptyMessage="Nenhum registro">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro"
+				value="#{pessoaBean.pessoas}" var="pessoa" rows="5" paginator="true">
+				
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();">
-						
+					<p:commandButton value="Novo" actionListener="#{pessoaBean.novo}"
+						oncomplete="PF('dialogo').show();">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Nome" sortBy="true" filterBy="true">
-					<p:outputLabel>
-					</p:outputLabel>
+					<p:outputLabel value="#{pessoa.nome}" />
 				</p:column>
 
 				<p:column headerText="RG" sortBy="true" filterBy="true">
-					<p:outputLabel>
-					</p:outputLabel>
+					<p:outputLabel value="#{pessoa.rg}" />
 				</p:column>
 
 				<p:column headerText="CPF" sortBy="true" filterBy="true">
-					<p:outputLabel>
-					</p:outputLabel>
+					<p:outputLabel value="#{pessoa.cpf}" />
+
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:outputLabel>
-					</p:outputLabel>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -45,7 +48,8 @@
 	</h:form>
 
 
-	<p:dialog widgetVar="dialogo" closable="false" modal="true" resizable="false" draggable="false" >
+	<p:dialog widgetVar="dialogo" closable="false" modal="true"
+		resizable="false" draggable="false">
 		<h:form>
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Nome" />
@@ -94,21 +98,23 @@
 
 				<p:outputLabel value="Cidade" />
 				<p:selectOneMenu filter="true">
-					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma cidade" />
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma cidade" />
 				</p:selectOneMenu>
-				
+
 				<p:outputLabel value="Estado" />
 				<p:selectOneMenu filter="true">
-					<f:selectItem noSelectionOption="true" itemLabel="Selecione um Estado" />
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um Estado" />
 				</p:selectOneMenu>
-				
+
 				<h:form>
-					<h:panelGrid columns="2" >
+					<h:panelGrid columns="2">
 						<p:commandButton value="Salvar">
 						</p:commandButton>
-						
-						<p:commandButton value="fechar" oncomplete="PF('dialogo').hide();"/>
-						
+
+						<p:commandButton value="fechar" oncomplete="PF('dialogo').hide();" />
+
 					</h:panelGrid>
 				</h:form>
 			</h:panelGrid>

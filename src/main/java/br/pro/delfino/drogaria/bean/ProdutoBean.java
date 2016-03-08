@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+
 import org.omnifaces.util.Messages;
 
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
@@ -53,7 +54,7 @@ public class ProdutoBean implements Serializable {
 		try {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar();
-		} catch (Exception erro) {
+		} catch (RuntimeException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError("Erro ao carregar lista");
 		}
