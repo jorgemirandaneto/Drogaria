@@ -1,8 +1,11 @@
 package br.pro.delfino.drogaria.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import org.omnifaces.util.Messages;
 
@@ -11,7 +14,10 @@ import br.pro.delfino.drogaria.domain.Cidade;
 import br.pro.delfino.drogaria.domain.Estado;
 import br.pro.delfino.drogaria.domain.Pessoa;
 
-public class PessoaBean {
+@SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
+public class PessoaBean implements Serializable {
 	private Pessoa pessoa;
 	private List<Pessoa> pessoas;
 	private List<Cidade> cidades;
