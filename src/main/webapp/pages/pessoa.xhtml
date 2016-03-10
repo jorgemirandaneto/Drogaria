@@ -17,7 +17,7 @@
 		<p:panel header="Listagem - Pessoa">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro"
 				value="#{pessoaBean.pessoas}" var="pessoa" rows="5" paginator="true">
-				
+
 				<f:facet name="header">
 					<p:commandButton value="Novo" actionListener="#{pessoaBean.novo}"
 						oncomplete="PF('dialogo').show();">
@@ -26,26 +26,44 @@
 					</p:commandButton>
 				</f:facet>
 
-				<p:column headerText="Nome" sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
+				<p:column headerText="Nome" sortBy="#{pessoa.nome}"
+					filterBy="#{pessoa.nome}">
 					<p:outputLabel value="#{pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="RG" sortBy="#{pessoa.rg}" filterBy="#{pessoa.rg}">
+				<p:column headerText="RG" sortBy="#{pessoa.rg}"
+					filterBy="#{pessoa.rg}">
 					<p:outputLabel value="#{pessoa.rg}" />
 				</p:column>
 
-				<p:column headerText="CPF" sortBy="#{pessoa.cpf}" filterBy="#{pessoa.cpf}">
+				<p:column headerText="CPF" sortBy="#{pessoa.cpf}"
+					filterBy="#{pessoa.cpf}">
 					<p:outputLabel value="#{pessoa.cpf}" />
 
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash">
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil">
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+
+
+			<p:confirmDialog global="true" closable="false">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
 		</p:panel>
 
 
 	</h:form>
+
 
 
 	<p:dialog widgetVar="dialogo" closable="false" modal="true"
@@ -53,71 +71,77 @@
 		<h:form>
 			<h:panelGrid columns="2">
 				<p:outputLabel value="Nome" />
-				<p:inputText>
-				</p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.nome}" />
+
 
 				<p:outputLabel value="CPF" />
-				<p:inputText>
-				</p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.cpf}" />
+
 
 				<p:outputLabel value="RG" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.rg}">
 				</p:inputText>
 
 				<p:outputLabel value="Endereço" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.rua}">
 				</p:inputText>
 
 				<p:outputLabel value="Número" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.numero}">
 				</p:inputText>
 
 				<p:outputLabel value="Bairro" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.bairro}">
 				</p:inputText>
 
 				<p:outputLabel value="Cep" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.cep}">
 				</p:inputText>
 
 				<p:outputLabel value="complemento" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.complemento}">
 				</p:inputText>
 
 				<p:outputLabel value="Telefone" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.telefone}">
 				</p:inputText>
 
 				<p:outputLabel value="Celular" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.celular}">
 				</p:inputText>
 
 				<p:outputLabel value="Email" />
-				<p:inputText>
+				<p:inputText value="#{pessoaBean.pessoa.email}">
 				</p:inputText>
 
 				<p:outputLabel value="Cidade" />
 				<p:selectOneMenu filter="true">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma cidade" />
+					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
+						itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Estado" />
 				<p:selectOneMenu filter="true">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um Estado" />
+					<f:selectItems value="#{pessoaBean.estados}" var="estado"
+						itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
 				</p:selectOneMenu>
-
-				<h:form>
-					<h:panelGrid columns="2">
-						<p:commandButton value="Salvar">
-						</p:commandButton>
-
-						<p:commandButton value="fechar" oncomplete="PF('dialogo').hide();" />
-
-					</h:panelGrid>
-				</h:form>
 			</h:panelGrid>
+			<h:form>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{pessoaBean.salvar}"
+						update=":mensagem :formListagem:tabela">
+					</p:commandButton>
+
+					<p:commandButton value="fechar" oncomplete="PF('dialogo').hide();" />
+
+				</h:panelGrid>
+			</h:form>
+
 		</h:form>
 	</p:dialog>
 </h:body>

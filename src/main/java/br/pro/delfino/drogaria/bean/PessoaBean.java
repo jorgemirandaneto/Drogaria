@@ -9,6 +9,8 @@ import javax.faces.bean.ViewScoped;
 
 import org.omnifaces.util.Messages;
 
+import br.pro.delfino.drogaria.dao.CidadeDAO;
+import br.pro.delfino.drogaria.dao.EstadoDAO;
 import br.pro.delfino.drogaria.dao.PessoaDAO;
 import br.pro.delfino.drogaria.domain.Cidade;
 import br.pro.delfino.drogaria.domain.Estado;
@@ -64,11 +66,37 @@ public class PessoaBean implements Serializable {
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
+			
+			CidadeDAO cidadeDAO = new CidadeDAO();
+			cidades = cidadeDAO.listar();
+			
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar(); 
 		} catch (Exception erro) {
 			Messages.addGlobalError("Erro ao listar");
 			erro.printStackTrace();
 		}
 
+	}
+	
+	public void salvar(){
+		try {
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			pessoaDAO.merge(pessoa);
+			
+			pessoa = new Pessoa();
+								
+			pessoas = pessoaDAO.listar();
+			
+			estado = new Estado();
+			
+			Messages.addGlobalInfo("Salvo com sucesso");
+				
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao salvar pessoa");
+			erro.printStackTrace();
+		}
+		
 	}
 
 }
