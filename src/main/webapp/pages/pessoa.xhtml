@@ -102,22 +102,23 @@
 				</p:inputText>
 
 				<p:outputLabel for="cep" value="Cep" />
-				<p:inputText id="cep" value="#{pessoaBean.pessoa.cep}"
-					required="true" requiredMessage="CEP precisa ser preenchido">
-				</p:inputText>
+				<p:inputMask id="cep" value="#{pessoaBean.pessoa.cep}"
+					required="true" requiredMessage="CEP precisa ser preenchido"
+					mask="99999-999">
+				</p:inputMask>
 
 				<p:outputLabel value="complemento" />
 				<p:inputText value="#{pessoaBean.pessoa.complemento}">
 				</p:inputText>
 
 				<p:outputLabel value="Telefone" />
-				<p:inputText value="#{pessoaBean.pessoa.telefone}" required="true"
-					requiredMessage="TELEFONE precisa ser preenchido">
-				</p:inputText>
+				<p:inputMask value="#{pessoaBean.pessoa.telefone}" required="true"
+					requiredMessage="TELEFONE precisa ser preenchido" mask="(99)9999-9999">
+				</p:inputMask>
 
 				<p:outputLabel value="Celular" />
-				<p:inputText value="#{pessoaBean.pessoa.celular}">
-				</p:inputText>
+				<p:inputMask value="#{pessoaBean.pessoa.celular}" mask="(99)99999-9999">
+				</p:inputMask>
 
 				<p:outputLabel value="Email" />
 				<p:inputText value="#{pessoaBean.pessoa.email}" required="true">
@@ -126,7 +127,8 @@
 				<p:outputLabel value="Cidade" for="cidade" />
 				<p:selectOneMenu filter="true" id="cidade"
 					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="Cidade precisa ser preenchido">
+					requiredMessage="Cidade precisa ser preenchido"
+					value="#{pessoaBean.pessoa.cidade}">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma cidade" />
 					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"

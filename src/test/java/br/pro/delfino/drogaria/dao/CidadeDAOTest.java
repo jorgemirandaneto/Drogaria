@@ -34,6 +34,7 @@ public class CidadeDAOTest {
 	@Test
 	@Ignore
 	public void listar() {
+		
 		CidadeDAO cidadeDAO = new CidadeDAO();
 		List<Cidade> resultado = cidadeDAO.listar();
 
@@ -89,5 +90,18 @@ public class CidadeDAOTest {
 		System.out.println(cliente.getDataCadastro());
 		System.out.println(cliente.getLiberado());
 	}
-
+	
+	@Test
+	@Ignore
+	public void buscarPorEstado(){
+		Long estadoCodigo = 1L;
+		
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		List<Cidade> resultado = cidadeDAO.buscarPorCidade(estadoCodigo);
+		
+		for (Cidade cidade : resultado) {
+			System.out.println(cidade.getNome());
+			System.out.println(cidade.getEstado().getNome());			
+		}
+	}
 }

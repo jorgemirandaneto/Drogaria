@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.omnifaces.util.Messages;
 
-import br.pro.delfino.drogaria.dao.CidadeDAO;
+
 import br.pro.delfino.drogaria.dao.EstadoDAO;
 import br.pro.delfino.drogaria.dao.PessoaDAO;
 import br.pro.delfino.drogaria.domain.Cidade;
@@ -61,12 +61,17 @@ public class PessoaBean implements Serializable {
 	
 	
 	public void novo() {
+		try{
 		pessoa = new Pessoa();
 		
 		EstadoDAO estadoDAO = new EstadoDAO();
-		estados = estadoDAO.listar();
+		estados = estadoDAO.listar("nome");
 		
 		cidades = new ArrayList<Cidade>();
+		}catch(RuntimeException erro){
+			Messages.addGlobalError("Erro ao tentantar gerar uma pessoa");
+			erro.printStackTrace();
+		}
 	}
 
 	
@@ -76,11 +81,7 @@ public class PessoaBean implements Serializable {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar();
 			
-			CidadeDAO cidadeDAO = new CidadeDAO();
-			cidades = cidadeDAO.listar();
-			
-			EstadoDAO estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar(); 
+		 
 		} catch (Exception erro) {
 			Messages.addGlobalError("Erro ao listar");
 			erro.printStackTrace();
