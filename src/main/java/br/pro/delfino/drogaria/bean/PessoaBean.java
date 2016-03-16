@@ -1,6 +1,7 @@
 package br.pro.delfino.drogaria.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -57,10 +58,18 @@ public class PessoaBean implements Serializable {
 		this.estados = estados;
 	}
 
+	
+	
 	public void novo() {
 		pessoa = new Pessoa();
+		
+		EstadoDAO estadoDAO = new EstadoDAO();
+		estados = estadoDAO.listar();
+		
+		cidades = new ArrayList<Cidade>();
 	}
 
+	
 	@PostConstruct
 	public void listar() {
 		try {
@@ -78,6 +87,10 @@ public class PessoaBean implements Serializable {
 		}
 
 	}
+	
+	
+
+	
 	
 	public void salvar(){
 		
