@@ -80,23 +80,19 @@ public class PessoaBean implements Serializable {
 	}
 	
 	public void salvar(){
-		try {
-			PessoaDAO pessoaDAO = new PessoaDAO();
-			pessoaDAO.merge(pessoa);
-			
-			pessoa = new Pessoa();
-								
-			pessoas = pessoaDAO.listar();
-			
-			estado = new Estado();
-			
-			Messages.addGlobalInfo("Salvo com sucesso");
-				
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao salvar pessoa");
-			erro.printStackTrace();
-		}
+		
+		
+		
+	}
+	
+
+	public void editar(){
+		 
+	 }
+	
+	public void excluir(){
 		
 	}
 
 }
+

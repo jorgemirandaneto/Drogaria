@@ -70,32 +70,40 @@
 		resizable="false" draggable="false">
 		<h:form>
 			<h:panelGrid columns="2">
-				<p:outputLabel value="Nome" />
-				<p:inputText value="#{pessoaBean.pessoa.nome}" />
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" value="#{pessoaBean.pessoa.nome}"
+					required="true" requiredMessage="Nome precisa ser preenchido" maxlength="50" size="30"/>
 
 
-				<p:outputLabel value="CPF" />
-				<p:inputText value="#{pessoaBean.pessoa.cpf}" />
+				<p:outputLabel value="CPF" for="cpf" />
+				<p:inputMask id="cpf" value="#{pessoaBean.pessoa.cpf}"
+					required="true" requiredMessage="CPF precisa ser preenchido"
+					mask="999.999.999-99" maxlength="14" size="15" />
 
 
-				<p:outputLabel value="RG" />
-				<p:inputText value="#{pessoaBean.pessoa.rg}">
+				<p:outputLabel value="RG" for="rg" />
+				<p:inputText id="rg" value="#{pessoaBean.pessoa.rg}" required="true"
+					requiredMessage="Rg precisa ser preenchido">
 				</p:inputText>
 
-				<p:outputLabel value="Endereço" />
-				<p:inputText value="#{pessoaBean.pessoa.rua}">
+				<p:outputLabel value="Endereço" for="endereco" />
+				<p:inputText id="endereco" value="#{pessoaBean.pessoa.rua}"
+					required="true" requiredMessage="Endereço precisa ser preenchido">
 				</p:inputText>
 
-				<p:outputLabel value="Número" />
-				<p:inputText value="#{pessoaBean.pessoa.numero}">
+				<p:outputLabel value="Número" for="numero" />
+				<p:inputText id="numero" value="#{pessoaBean.pessoa.numero}"
+					required="true" requiredMessage="Numero precisa ser preenchido">
 				</p:inputText>
 
-				<p:outputLabel value="Bairro" />
-				<p:inputText value="#{pessoaBean.pessoa.bairro}">
+				<p:outputLabel value="Bairro" for="bairro" />
+				<p:inputText id="bairro" value="#{pessoaBean.pessoa.bairro}"
+					required="true" requiredMessage="Bairro precisa ser preenchido">
 				</p:inputText>
 
-				<p:outputLabel value="Cep" />
-				<p:inputText value="#{pessoaBean.pessoa.cep}">
+				<p:outputLabel for="cep" value="Cep" />
+				<p:inputText id="cep" value="#{pessoaBean.pessoa.cep}"
+					required="true" requiredMessage="CEP precisa ser preenchido">
 				</p:inputText>
 
 				<p:outputLabel value="complemento" />
@@ -103,7 +111,8 @@
 				</p:inputText>
 
 				<p:outputLabel value="Telefone" />
-				<p:inputText value="#{pessoaBean.pessoa.telefone}">
+				<p:inputText value="#{pessoaBean.pessoa.telefone}" required="true"
+					requiredMessage="TELEFONE precisa ser preenchido">
 				</p:inputText>
 
 				<p:outputLabel value="Celular" />
@@ -111,11 +120,13 @@
 				</p:inputText>
 
 				<p:outputLabel value="Email" />
-				<p:inputText value="#{pessoaBean.pessoa.email}">
+				<p:inputText value="#{pessoaBean.pessoa.email}" required="true">
 				</p:inputText>
 
-				<p:outputLabel value="Cidade" />
-				<p:selectOneMenu filter="true">
+				<p:outputLabel value="Cidade" for="cidade" />
+				<p:selectOneMenu filter="true" id="cidade"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="Cidade precisa ser preenchido">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma cidade" />
 					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
@@ -123,9 +134,11 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Estado" />
-				<p:selectOneMenu filter="true">
+				<p:selectOneMenu filter="true" required="true"
+					requiredMessage="Estado precisa ser preenchido">
 					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um Estado" />
+						itemLabel="Selecione um Estado"
+						converter="omnifaces.SelectItemsConverter" />
 					<f:selectItems value="#{pessoaBean.estados}" var="estado"
 						itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
 				</p:selectOneMenu>
