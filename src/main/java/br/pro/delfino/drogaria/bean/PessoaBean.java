@@ -23,6 +23,7 @@ import br.pro.delfino.drogaria.domain.Pessoa;
 public class PessoaBean implements Serializable {
 	private Pessoa pessoa;
 	private List<Pessoa> pessoas;
+	
 	private List<Cidade> cidades;
 	private List<Estado> estados;
 
@@ -94,8 +95,7 @@ public class PessoaBean implements Serializable {
 	
 	
 	public void salvar(){
-		
-		
+	
 		
 	}
 	

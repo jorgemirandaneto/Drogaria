@@ -20,7 +20,8 @@
 
 				<f:facet name="header">
 					<p:commandButton value="Novo" actionListener="#{pessoaBean.novo}"
-						oncomplete="PF('dialogo').show();">
+						oncomplete="PF('dialogo').show();"
+						update=":mensagem :formCadastro:cadastro">
 						<f:actionListener
 							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
@@ -68,11 +69,12 @@
 
 	<p:dialog widgetVar="dialogo" closable="false" modal="true"
 		resizable="false" draggable="false">
-		<h:form>
-			<h:panelGrid columns="2">
+		<h:form id="formCadastro">
+			<h:panelGrid columns="2" id="cadastro">
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" value="#{pessoaBean.pessoa.nome}"
-					required="true" requiredMessage="Nome precisa ser preenchido" maxlength="50" size="30"/>
+					required="true" requiredMessage="Nome precisa ser preenchido"
+					maxlength="50" size="30" />
 
 
 				<p:outputLabel value="CPF" for="cpf" />
@@ -113,11 +115,13 @@
 
 				<p:outputLabel value="Telefone" />
 				<p:inputMask value="#{pessoaBean.pessoa.telefone}" required="true"
-					requiredMessage="TELEFONE precisa ser preenchido" mask="(99)9999-9999">
+					requiredMessage="TELEFONE precisa ser preenchido"
+					mask="(99)9999-9999">
 				</p:inputMask>
 
 				<p:outputLabel value="Celular" />
-				<p:inputMask value="#{pessoaBean.pessoa.celular}" mask="(99)99999-9999">
+				<p:inputMask value="#{pessoaBean.pessoa.celular}"
+					mask="(99)99999-9999">
 				</p:inputMask>
 
 				<p:outputLabel value="Email" />
@@ -142,14 +146,13 @@
 						itemLabel="Selecione um Estado"
 						converter="omnifaces.SelectItemsConverter" />
 					<f:selectItems value="#{pessoaBean.estados}" var="estado"
-						itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
+						itemValue="#{estado}" itemLabel="#{estado.nome}" />
 				</p:selectOneMenu>
 			</h:panelGrid>
 			<h:form>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						actionListener="#{pessoaBean.salvar}"
-						update=":mensagem :formListagem:tabela">
+						update=":mensagem :formListagem:tabela" actionListener="#{pessoaBean.salvar}">
 					</p:commandButton>
 
 					<p:commandButton value="fechar" oncomplete="PF('dialogo').hide();" />
