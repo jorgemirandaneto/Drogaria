@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.omnifaces.util.Messages;
 
-
+import br.pro.delfino.drogaria.dao.CidadeDAO;
 import br.pro.delfino.drogaria.dao.EstadoDAO;
 import br.pro.delfino.drogaria.dao.PessoaDAO;
 import br.pro.delfino.drogaria.domain.Cidade;
@@ -23,6 +23,8 @@ import br.pro.delfino.drogaria.domain.Pessoa;
 public class PessoaBean implements Serializable {
 	private Pessoa pessoa;
 	private List<Pessoa> pessoas;
+	
+	private Estado estado;
 	
 	private List<Cidade> cidades;
 	private List<Estado> estados;
@@ -59,14 +61,20 @@ public class PessoaBean implements Serializable {
 		this.estados = estados;
 	}
 
-	
+    public Estado getEstado() {
+	return estado;
+    }
+    
+    public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 	
 	public void novo() {
 		try{
 		pessoa = new Pessoa();
 		
 		EstadoDAO estadoDAO = new EstadoDAO();
-		estados = estadoDAO.listar("nome");
+		estados = estadoDAO.listar("nome");		
 		
 		cidades = new ArrayList<Cidade>();
 		}catch(RuntimeException erro){
@@ -76,7 +84,7 @@ public class PessoaBean implements Serializable {
 	}
 
 	
-	@PostConstruct
+	@PostConstruct	
 	public void listar() {
 		try {
 			PessoaDAO pessoaDAO = new PessoaDAO();
@@ -90,10 +98,7 @@ public class PessoaBean implements Serializable {
 
 	}
 	
-	
-
-	
-	
+		
 	public void salvar(){
 	
 		
@@ -107,6 +112,18 @@ public class PessoaBean implements Serializable {
 	public void excluir(){
 		
 	}
+	
+	public void popular(){
+		try {
+			if (estado != null) {
+				CidadeDAO cidadeDAO = new CidadeDAO();
+				cidades = cidadeDAO.buscarPorCidade(estado.getCodigo());
+			} else {
+				cidades = new ArrayList<>();
+			}
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao listar cidades");
+		}
+	}
 
 }
-
