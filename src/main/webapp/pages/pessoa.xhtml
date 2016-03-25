@@ -41,10 +41,22 @@
 				</p:column>
 
 				<p:column headerText="Opcões">
-					<p:commandButton icon="ui-icon-trash">
+					<p:commandButton icon="ui-icon-trash"
+						update=":mensagem :formListagem:tabela"
+						actionListener="#{pessoaBean.excluir}">
+						<p:confirm header="Confirmação"
+							message="Deseja mesmo excluir a pessoa?" />
+						<f:attribute name="pessoaSelecionada" value="#{pessoa}" />
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-pencil">
+					<p:commandButton icon="ui-icon-pencil"
+						update=":mensagem :formCadastro:painel"
+						actionListener="#{pessoaBean.editar}"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="pessoaSelecionada" value="#{pessoa}"/>
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />						
+
 					</p:commandButton>
 
 				</p:column>
@@ -55,10 +67,10 @@
 
 			<p:confirmDialog global="true">
 				<p:commandButton value="Sim" type="button"
-					style="ui-confirmdialog-yes" icon="ui-icon-check" />
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 
 				<p:commandButton value="Não" type="button"
-					style="ui-confirmdialog-no" icon="ui-icon-check" />
+					styleClass="ui-confirmdialog-no" icon="ui-icon-check" />
 			</p:confirmDialog>
 
 
@@ -73,17 +85,18 @@
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
-				<p:outputLabel value="Nome" for="nome"  />
-				<p:inputText id="nome" value="#{pessoaBean.pessoa.nome}" required="true"
-					requiredMessage="Nome não preenchido" />
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" value="#{pessoaBean.pessoa.nome}"
+					required="true" requiredMessage="Nome não preenchido" />
 
-				<p:outputLabel value="RG" for="rg"/>
+				<p:outputLabel value="RG" for="rg" />
 				<p:inputText id="rg" value="#{pessoaBean.pessoa.rg}" required="true"
 					requiredMessage="RG não preenchido" />
 
-				<p:outputLabel value="CPF" for="cpf"/>
-				<p:inputMask id="cpf" mask="999.999.999-99" value="#{pessoaBean.pessoa.cpf}"
-					required="true" requiredMessage="CPf nãp preenchido" />
+				<p:outputLabel value="CPF" for="cpf" />
+				<p:inputMask id="cpf" mask="999.999.999-99"
+					value="#{pessoaBean.pessoa.cpf}" required="true"
+					requiredMessage="CPf nãp preenchido" />
 
 				<p:outputLabel value="Estado" />
 				<p:selectOneMenu id="estado" filter="true"
@@ -100,7 +113,7 @@
 				<p:outputLabel value="Cidade" for="cidade" />
 				<p:selectOneMenu id="cidade" filter="true"
 					converter="omnifaces.SelectItemsConverter"
-					value="#{pessoaBean.cidades}" required="true"
+					value="#{pessoaBean.pessoa.cidade}" required="true"
 					requiredMessage="Cidade não preenchido">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione uma cidade" />
@@ -112,17 +125,18 @@
 				<p:inputText value="#{pessoaBean.pessoa.rua}" required="true"
 					requiredMessage="Logradouro não preenchido" />
 
-				<p:outputLabel value="Número" for="numero"/>
-				<p:inputText id="numero" value="#{pessoaBean.pessoa.numero}" required="true"
-					requiredMessage="Número não preenchido" />
+				<p:outputLabel value="Número" for="numero" />
+				<p:inputText id="numero" value="#{pessoaBean.pessoa.numero}"
+					required="true" requiredMessage="Número não preenchido" />
 
 				<p:outputLabel for="bairro" value="Bairro" />
-				<p:inputText id="bairro" value="#{pessoaBean.pessoa.bairro}" required="true"
-					requiredMessage="Bairro não preenchido" />
+				<p:inputText id="bairro" value="#{pessoaBean.pessoa.bairro}"
+					required="true" requiredMessage="Bairro não preenchido" />
 
 				<p:outputLabel for="cep" value="CEP" />
-				<p:inputMask id="cep" mask="999-999-99" value="#{pessoaBean.pessoa.cep}"
-					required="true" requiredMessage="CEP não preenchido" />
+				<p:inputMask id="cep" mask="999-999-99"
+					value="#{pessoaBean.pessoa.cep}" required="true"
+					requiredMessage="CEP não preenchido" />
 
 				<p:outputLabel value="Complemento" />
 				<p:inputText value="#{pessoaBean.pessoa.complemento}" />
@@ -138,20 +152,20 @@
 					requiredMessage="Celular não preenchido" />
 
 				<p:outputLabel for="email" value="Email" />
-				<p:inputText id="email" value="#{pessoaBean.pessoa.email}" required="true"
-					requiredMessage="Email não preenchido" />
+				<p:inputText id="email" value="#{pessoaBean.pessoa.email}"
+					required="true" requiredMessage="Email não preenchido" />
 
-				
-					<h:panelGrid columns="2">
-						<p:commandButton value="Salvar"
-							actionListener="#{pessoaBean.salvar}"
-							update=":mensagem :formCadastro:painel :formListagem:tabela">
-						</p:commandButton>
 
-						<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
-						</p:commandButton>
-					</h:panelGrid>
-		
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{pessoaBean.salvar}"
+						update=":mensagem :formCadastro:painel :formListagem:tabela">
+					</p:commandButton>
+
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
+					</p:commandButton>
+				</h:panelGrid>
+
 
 			</h:panelGrid>
 		</h:form>
