@@ -1,5 +1,7 @@
 package br.pro.delfino.drogaria.dao;
 
+
+
 import java.util.List;
 
 import org.junit.Ignore;
@@ -15,7 +17,7 @@ public class UsuarioDAOTest {
 	@Ignore
 	public void salvar(){
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(2L);
+		Pessoa pessoa = pessoaDAO.buscar(1L);
 		
 		
 		Usuario usuario = new Usuario();
@@ -73,6 +75,8 @@ public class UsuarioDAOTest {
 		
 	}
 	
+	@Test
+	@Ignore
 	public void excluir(){
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		Usuario usuario = usuarioDAO.buscar(1L);

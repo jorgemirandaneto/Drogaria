@@ -52,10 +52,21 @@ public class Usuario extends GenericDomain {
 		this.tipo = tipo;
 	}
 
-	public boolean isAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
-
+	
+	@Transient
+	public String getAtivoFormatado(){
+		String ativoFormatado = "Sim";
+		
+		if (ativo) {
+			ativoFormatado = "Não";
+		}
+		
+		return ativoFormatado;
+	}
+	
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
