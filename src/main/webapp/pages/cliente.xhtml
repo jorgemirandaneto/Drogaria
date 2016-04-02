@@ -8,25 +8,32 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Clientes</title>
+	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
 
 	<p:growl id="mensagem" />
 
-	<h:form>
-		<p:panel header="Clientes - Listagem">
+	<h:form id="formListagem">
+		<p:panel id="tabela" header="Clientes - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{clienteBean.clientes}" var="cliente">
+				paginator="true" value="#{clienteBean.clientes}" var="cliente"
+				rows="5">
 				<f:facet name="header">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{clienteBean.novo}"
-						update=":mensagem :formCadastro:painel" />
+						update=":mensagem :formCadastro:painel">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
 				</f:facet>
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" sortBy="#{cliente.pessoa.nome}"
+					filterBy="#{cliente.pessoa.nome}">
 					<h:outputText value="#{cliente.pessoa.nome}" />
 				</p:column>
 
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" sortBy="#{cliente.pessoa.cpf}"
+					filterBy="#{cliente.pessoa.cpf}">
 					<h:outputText value="#{cliente.pessoa.cpf}" />
 				</p:column>
 
@@ -51,21 +58,30 @@
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid columns="2" id="painel">
-				<p:outputLabel value="Pessoa: " />
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Selecione uma pessoa" />
+				<p:outputLabel for="pessoa" value="Pessoa: " />
+				<p:selectOneMenu id="pessoa" filter="true"
+					value="#{clienteBean.cliente.pessoa}" required="true"
+					requiredMessage="Pessoa é obrigatório"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma pessoa" />
+					<f:selectItems value="#{clienteBean.pessoas}" var="pessoa"
+						itemValue="#{pessoa}" itemLabel="#{pessoa.nome}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Data de cadastro" />
-				<p:calendar />
+				<p:outputLabel for="dataCadastro" value="Data de cadastro" />
+				<p:calendar id="dataCadastro"
+					value="#{clienteBean.cliente.dataCadastro}" required="true"
+					requiredMessage="Data de cadastro é obritório" locale="pt_BR" />
 
 				<p:outputLabel value="Ativo:" />
-				<p:selectBooleanCheckbox />
+				<p:selectBooleanCheckbox value="#{clienteBean.cliente.liberado}" />
 			</h:panelGrid>
-		</h:form>
-		<h:form>
+
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar"
+					actionListener="#{clienteBean.salvar}"
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
