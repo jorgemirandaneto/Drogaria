@@ -12,11 +12,10 @@ import br.pro.delfino.drogaria.domain.Pessoa;
 
 public class ClienteDAOTest {
 	@Test
-	@Ignore
 	public void salvar() throws ParseException {
 
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(2L);
+		Pessoa pessoa = pessoaDAO.buscar(1L);
 
 		Cliente cliente = new Cliente();
 		cliente.setDataCadastro(new SimpleDateFormat("dd/MM/yyyy").parse("09/10/2015"));
