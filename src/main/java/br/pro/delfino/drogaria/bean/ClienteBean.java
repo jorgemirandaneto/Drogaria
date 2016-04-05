@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -89,6 +89,21 @@ public class ClienteBean implements Serializable {
 			erro.printStackTrace();
 			Messages.addGlobalError("Erro ao salvar cliente");
 		}
+	}
+	
+	public void editar(ActionEvent evento){
+		
+		try{
+		cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+		
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		pessoas = pessoaDAO.listar();
+		}catch(RuntimeException erro){
+			erro.printStackTrace();
+			Messages.addGlobalError("Erro ao editar o cliente");
+			
+		}
+		
 	}
 
 }
