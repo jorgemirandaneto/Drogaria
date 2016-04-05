@@ -40,10 +40,14 @@
 		<h:panelGrid columns="2">
 
 			<p:outputLabel value="Pessoa" />
-			<p:selectOneMenu filter="true" value="#{usuaarioBean.usuario.pessoa}"
+			<p:selectOneMenu filter="true" value="#{usuarioBean.usuario.pessoa}"
 				converter="omnifaces.SelectItemsConverter">
-				<f:selectItem itemLabel="Selecione uma pessoa" itemValue="#{}"/>
+				<f:selectItem noSelectionOption="true"
+					itemLabel="Selecione uma pessoa" />
+				<f:selectItems value="#{usuarioBean.pessoas}" var="pessoa"
+					itemValue="#{pessoa}" itemLabel="#{pessoa.nome}	" />
 			</p:selectOneMenu>
+			
 
 			<p:outputLabel value="Senha: " />
 			<p:password maxlength="8" size="10" />
