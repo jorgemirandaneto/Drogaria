@@ -84,7 +84,7 @@ public class UsuarioBean implements Serializable {
 			
 			novo();
 			
-			usuarioDAO.listar();
+			usuarios = usuarioDAO.listar();
 			
 			Messages.addGlobalInfo("Usuario salvo com sucesso!!!");
 		} catch (RuntimeException erro) {
