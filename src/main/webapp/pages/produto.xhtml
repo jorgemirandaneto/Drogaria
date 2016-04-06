@@ -78,7 +78,7 @@
 
 	<p:dialog header="Cadastro - Produto" widgetVar="dialogo"
 		closable="false" modal="true" resizable="false" draggable="false">
-		<h:form id="formCadastro">
+		<h:form id="formCadastro" enctype="multipart/form-data"> 
 			<h:panelGrid id="painel" columns="2">
 
 				<p:outputLabel value="Descrição: *" />
@@ -123,6 +123,9 @@
 
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
 				</p:commandButton>
+			<p:outputLabel value="Arquivo: "/>
+			<p:fileUpload mode="advanced"/>
+			
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>

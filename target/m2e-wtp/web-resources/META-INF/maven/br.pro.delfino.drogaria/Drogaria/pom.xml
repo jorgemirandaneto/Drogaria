@@ -31,7 +31,7 @@
 		</plugins>
 	</build>
 	<!-- Repositórios -->
-	
+
 	<!-- PrimeFaces -->
 	<repositories>
 		<repository>
@@ -87,6 +87,12 @@
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
+
+		<!-- Definição do mecanismo de upload -->
+		<context-param>
+			<param-name>primefaces.UPLOADER</param-name>
+			<param-value>native</param-value>
+		</context-param>
 
 		<!-- Omnifaces -->
 		<dependency>
