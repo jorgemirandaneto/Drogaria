@@ -49,7 +49,7 @@
 					<p:commandButton icon="ui-icon-trash"
 						update=":mensagem :formListagem:tabela"
 						actionListener="#{produtoBean.excluir}">
-						<p:confirm header="Confirmação" message="Deseja deletar a cidade?"
+						<p:confirm header="Confirmação" message="Deseja deletar o produto?"
 							icon="ui-icon-alert" />
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
@@ -124,7 +124,7 @@
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
 				</p:commandButton>
 			<p:outputLabel value="Arquivo: "/>
-			<p:fileUpload mode="advanced"/>
+			<p:fileUpload mode="advanced" />
 			
 			</h:panelGrid>
 		</h:form>

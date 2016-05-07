@@ -12,11 +12,17 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
-	
+
 	<!-- Temas Primefaces -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
+	</context-param>
+
+	<!-- Definição do mecanismo de upload -->
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>native</param-value>
 	</context-param>
 
 	<!-- Configuração do JSF -->
@@ -35,5 +41,5 @@
 		<listener-class>br.pro.delfino.drogaria.util.HibernateContexto</listener-class>
 	</listener>
 
-	
+
 </web-app>
