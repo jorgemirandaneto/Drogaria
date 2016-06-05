@@ -49,8 +49,8 @@
 					<p:commandButton icon="ui-icon-trash"
 						update=":mensagem :formListagem:tabela"
 						actionListener="#{produtoBean.excluir}">
-						<p:confirm header="Confirmação" message="Deseja deletar o produto?"
-							icon="ui-icon-alert" />
+						<p:confirm header="Confirmação"
+							message="Deseja deletar o produto?" icon="ui-icon-alert" />
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
 
@@ -78,24 +78,24 @@
 
 	<p:dialog header="Cadastro - Produto" widgetVar="dialogo"
 		closable="false" modal="true" resizable="false" draggable="false">
-		<h:form id="formCadastro" enctype="multipart/form-data"> 
+		<h:form id="formCadastro" enctype="multipart/form-data">
 			<h:panelGrid id="painel" columns="2">
 
-				<p:outputLabel value="Descrição: *" />
+				<p:outputLabel value="Descrição:*" />
 				<p:inputText value="#{produtoBean.produto.descricao}"
 					required="true" requiredMessage="Descrição não preenchida" />
 
-				<p:outputLabel value="Quantidade: *" />
-				<p:inputText value="#{produtoBean.produto.quantidade}"
+				<p:outputLabel value="Quantidade:*" />
+				<p:inputText type="number" value="#{produtoBean.produto.quantidade}"
 					required="true" requiredMessage="Quantidade não preenchida"
 					converterMessage="Valor invalido do campo Quantidade"
 					validatorMessage="Coloque um valor para o campo quantidade entre 0 e 1000">
 					<f:validateLongRange minimum="0" maximum="1000" />
 				</p:inputText>
 
-				<p:outputLabel value="Preço: *" />
-				<p:inputText value="#{produtoBean.produto.preco}" required="true"
-					requiredMessage="Preço não preenchido"
+				<p:outputLabel value="Preço:*" />
+				<p:inputText type="number" value="#{produtoBean.produto.preco}"
+					required="true" requiredMessage="Preço não preenchido"
 					converterMessage="Valor invalido do campo Preço"
 					validatorMessage="Coloque um um valor entre 0.01 e 9999.99">
 					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
@@ -116,19 +116,18 @@
 						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
 
-				<p:commandButton value="Salvar"
-					actionListener="#{produtoBean.salvar}"
-					update=":mensagem formCadastro:painel :formListagem:tabela">
-				</p:commandButton>
+				
+					<p:commandButton value="Salvar"
+						actionListener="#{produtoBean.salvar}"
+						update=":mensagem formCadastro:painel :formListagem:tabela">
+					</p:commandButton>
 
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
-				</p:commandButton>
-			<p:outputLabel value="Arquivo: "/>
-
-			<p:fileUpload mode="advanced" />
-			<p:fileUpload label="Arquivo" mode="advanced"></p:fileUpload>
-
-			
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
+					</p:commandButton>
+				
+				<p:outputLabel value=" "/>
+				<p:fileUpload mode="advanced" label="Foto" />
+		
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
