@@ -3,8 +3,8 @@ package br.pro.delfino.drogaria.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
@@ -21,7 +21,7 @@ import br.pro.delfino.drogaria.domain.Estado;
 public class CidadeBean implements Serializable {
 	private Cidade cidade;
 	private List<Cidade> cidades;
-	private List<Estado> estados;
+	private List<Estado> estados;	
 
 	public Cidade getCidade() {
 		return cidade;
@@ -117,4 +117,4 @@ public class CidadeBean implements Serializable {
 
 	}
 
-}
+}	

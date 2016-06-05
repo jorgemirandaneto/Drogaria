@@ -19,6 +19,7 @@
 		<param-value>bootstrap</param-value>
 	</context-param>
 
+
 	<!-- Definição do mecanismo de upload -->
 	<context-param>
 		<param-name>primefaces.UPLOADER</param-name>

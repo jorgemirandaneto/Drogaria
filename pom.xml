@@ -30,6 +30,9 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	
+	
 	<!-- Repositórios -->
 
 	<!-- PrimeFaces -->
@@ -87,7 +90,7 @@
 			<artifactId>all-themes</artifactId>
 			<version>1.0.10</version>
 		</dependency>
-
+		
 		<!-- Omnifaces -->
 		<dependency>
 			<groupId>org.omnifaces</groupId>
