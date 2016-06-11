@@ -8,8 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-
 import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
 
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
@@ -84,8 +84,7 @@ public class ProdutoBean implements Serializable {
 			fabricantes = fabricanteDAO.listar();
 
 			produtos = produtoDAO.listar();
-			
-			
+
 			Messages.addGlobalInfo("Produto salvo com sucesso");
 		} catch (RuntimeException erro) {
 			erro.printStackTrace();
@@ -124,6 +123,15 @@ public class ProdutoBean implements Serializable {
 			erro.printStackTrace();
 			Messages.addGlobalInfo("Erro ao editar produto");
 		}
+
+	}
+
+	public void upload(FileUploadEvent evento) {
+		String nomeFile = evento.getFile().getFileName();
+		String tipo = evento.getFile().getContentType();
+		long tamanho = evento.getFile().getSize();
+
+		Messages.addGlobalInfo("Nome " + nomeFile + "/nTipo: " + tipo + "/nTamanho " + tamanho);
 
 	}
 

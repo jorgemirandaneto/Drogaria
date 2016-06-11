@@ -116,18 +116,19 @@
 						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
 
-				
-					<p:commandButton value="Salvar"
-						actionListener="#{produtoBean.salvar}"
-						update=":mensagem formCadastro:painel :formListagem:tabela">
-					</p:commandButton>
 
-					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
-					</p:commandButton>
-				
-				<p:outputLabel value=" "/>
-				<p:fileUpload mode="advanced" label="Foto" />
-		
+				<p:commandButton value="Salvar"
+					actionListener="#{produtoBean.salvar}"
+					update=":mensagem formCadastro:painel :formListagem:tabela">
+				</p:commandButton>
+
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
+				</p:commandButton>
+
+				<p:outputLabel value="Foto" for="Foto" />
+				<p:fileUpload id="Foto" value="Foto" mode="advanced"
+					fileUploadListener="#{produtoBean.upload}" update=":mensagem" auto="true" />
+
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
