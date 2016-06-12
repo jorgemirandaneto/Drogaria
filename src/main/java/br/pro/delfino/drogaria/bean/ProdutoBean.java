@@ -1,6 +1,10 @@
 package br.pro.delfino.drogaria.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +14,7 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
@@ -113,7 +118,7 @@ public class ProdutoBean implements Serializable {
 
 	public void editar(ActionEvent evento) {
 
-		try {
+		try {	
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
@@ -127,11 +132,15 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void upload(FileUploadEvent evento) {
-		String nomeFile = evento.getFile().getFileName();
-		String tipo = evento.getFile().getContentType();
-		long tamanho = evento.getFile().getSize();
-
-		Messages.addGlobalInfo("Nome " + nomeFile + "/nTipo: " + tipo + "/nTamanho " + tamanho);
+		try {
+			UploadedFile arquivoUpload = evento.getFile();
+			Path arquivoTemp = Files.createTempFile(null, null);
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			produto.setCaminho(arquivoTemp.toString());
+		} catch (IOException erro) {
+			Messages.addGlobalInfo("Erro ao salvar a foto");
+			erro.printStackTrace();
+		}
 
 	}
 
