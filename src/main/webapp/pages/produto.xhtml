@@ -94,14 +94,14 @@
 				</p:inputText>
 
 				<p:outputLabel value="Preço:*" />
-				<p:inputText type="number" value="#{produtoBean.produto.preco}"
+				<p:spinner value="#{produtoBean.produto.preco}"
 					required="true" requiredMessage="Preço não preenchido"
 					converterMessage="Valor invalido do campo Preço"
 					validatorMessage="Coloque um um valor entre 0.01 e 9999.99">
 					<f:validateDoubleRange minimum="0.01" maximum="9999.99" />
 
 					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</p:inputText>
+				</p:spinner>
 
 				<p:outputLabel value="Fabricante: *" />
 				<p:selectOneMenu filter="true"
@@ -116,9 +116,10 @@
 						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
 
-<p:outputLabel value="Foto" for="Foto" />
-				<p:fileUpload id="Foto" value="Foto" mode="advanced"
-					fileUploadListener="#{produtoBean.upload}" update=":mensagem" auto="true" />
+				<p:outputLabel value="Foto" for="Foto" />
+				<p:fileUpload id="Foto" required="true" value="Foto" mode="advanced"
+					fileUploadListener="#{produtoBean.upload}" update=":mensagem"
+					auto="true" />
 
 
 				<p:commandButton value="Salvar"
@@ -129,7 +130,7 @@
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();">
 				</p:commandButton>
 
-				
+
 
 			</h:panelGrid>
 		</h:form>

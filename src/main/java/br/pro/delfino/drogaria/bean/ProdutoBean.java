@@ -80,12 +80,18 @@ public class ProdutoBean implements Serializable {
 
 	public void salvar() {
 		try {
-
+			
+			if(produto.getCaminho() == null){
+				Messages.addGlobalError("O campo foto é obrigatório");
+				return;
+			}
+			
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			Produto produtoRetorno = produtoDAO.merge(produto);
 			
 			Path origem  = Paths.get(produto.getCaminho());
-			Path destino = Paths.get("C:/Users/jorge/Documents/Upload/" + produtoRetorno.getCodigo() + "png");
+			Path destino = Paths.get("C:/Users/jorge/Documents/Upload/" + produtoRetorno.getCodigo() + ".png");
 			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 			
 			produto = new Produto();
@@ -108,13 +114,16 @@ public class ProdutoBean implements Serializable {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
+			Path arquivo = Paths.get("C:/Users/jorge/Documents/Upload/" + produto.getCodigo() + ".png");
+			Files.deleteIfExists(arquivo);
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtoDAO.excluir(produto);
 
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Sucesso ao excluir produto");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError("Erro ao excluir produto");
 		}
@@ -125,7 +134,10 @@ public class ProdutoBean implements Serializable {
 
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
+			
+			produto.setCaminho("C:/Users/jorge/Documents/Upload/" + produto.getCodigo() + ".png");
+			
+			
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
 
