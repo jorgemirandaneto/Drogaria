@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
@@ -81,8 +82,12 @@ public class ProdutoBean implements Serializable {
 		try {
 
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtoDAO.merge(produto);
-
+			Produto produtoRetorno = produtoDAO.merge(produto);
+			
+			Path origem  = Paths.get(produto.getCaminho());
+			Path destino = Paths.get("C:/Users/jorge/Documents/Upload/" + produtoRetorno.getCodigo() + "png");
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+			
 			produto = new Produto();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
@@ -91,7 +96,7 @@ public class ProdutoBean implements Serializable {
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Produto salvo com sucesso");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError("Erro ao salvar produto");
 		}
@@ -118,7 +123,7 @@ public class ProdutoBean implements Serializable {
 
 	public void editar(ActionEvent evento) {
 
-		try {	
+		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
