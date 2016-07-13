@@ -10,12 +10,13 @@
 	<title>Vendas</title>
 </h:head>
 <h:body>
-	<h:form>
+	<h:form id="formulario">
 		<p:growl id="mensagem" />
 
 		<p:panel header="Produtos">
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{vendaBean.produtos}" var="produto" rows="3">
+			<p:dataTable id="tabelaProduto"
+				emptyMessage="Nenhum registro encontrado" paginator="true"
+				value="#{vendaBean.produtos}" var="produto" rows="3">
 
 
 				<p:column headerText="Descrição" sortBy="#{produto.descricao}"
@@ -40,13 +41,51 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-plus" />
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{vendaBean.adicionar}"
+						update=":formulario:tabelaCarrinho">
+
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
 				</p:column>
 
 			</p:dataTable>
 		</p:panel>
 
-		<p:panel header="Produtos">
+		<p:panel header="Carrinho">
+			<p:dataTable id="tabelaCarrinho" value="#{vendaBean.vendasItem}"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				var="itemVenda" rows="3">
+
+
+				<p:column headerText="Descrição">
+					<p:outputLabel value="#{itemVenda.produto.descricao}" />
+
+				</p:column>
+
+				<p:column headerText="Preço Un.">
+					<p:outputLabel value="#{itemVenda.produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="Qtde.">
+					<p:outputLabel value="#{itemVenda.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço Parcial">
+					<p:outputLabel value="#{itemVenda.valorParcial}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-minus">
+
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
 		</p:panel>
 
 		<p:panel header="Produtos">
