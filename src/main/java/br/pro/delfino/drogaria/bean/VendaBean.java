@@ -1,6 +1,7 @@
 package br.pro.delfino.drogaria.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,14 +59,29 @@ public class VendaBean implements Serializable {
 		
 		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		
-		ItemVenda itemVenda = new ItemVenda();
-		itemVenda.setValorParcial(produto.getPreco());
-		itemVenda.setProduto(produto);
-		itemVenda.setQuantidade(new Short("1"));
+		int achou = -1;
+		for(int posicao = 0; posicao < vendasItem.size(); posicao++){
+			if(vendasItem.get(posicao).getProduto().equals(produto)){
+				achou = posicao;
+			}
+		}
+		if(achou < 0){
+			ItemVenda itemVenda = new ItemVenda();
+			itemVenda.setValorParcial(produto.getPreco());
+			itemVenda.setProduto(produto);
+			itemVenda.setQuantidade(new Short("1"));
+			
+			vendasItem.add(itemVenda);	
+		}else {
+			ItemVenda itemVenda = vendasItem.get(achou);
+			itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
+			itemVenda.setValorParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+		}
 		
-		vendasItem.add(itemVenda);
 		
-		System.out.println(produto);
+		
+		
+		
 	}
 	
 		
