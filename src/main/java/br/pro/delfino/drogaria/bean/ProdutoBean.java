@@ -1,6 +1,11 @@
 package br.pro.delfino.drogaria.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,8 +13,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-
 import org.omnifaces.util.Messages;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import br.pro.delfino.drogaria.dao.FabricanteDAO;
 import br.pro.delfino.drogaria.dao.ProdutoDAO;
@@ -74,20 +80,29 @@ public class ProdutoBean implements Serializable {
 
 	public void salvar() {
 		try {
-
+			
+			if(produto.getCaminho() == null){
+				Messages.addGlobalError("O campo foto é obrigatório");
+				return;
+			}
+			
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
-			produtoDAO.merge(produto);
-
+			Produto produtoRetorno = produtoDAO.merge(produto);
+			
+			Path origem  = Paths.get(produto.getCaminho());
+			Path destino = Paths.get("C:/Users/jorge/Documents/Upload/" + produtoRetorno.getCodigo() + ".png");
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+			
 			produto = new Produto();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
 
 			produtos = produtoDAO.listar();
-			
-			
+
 			Messages.addGlobalInfo("Produto salvo com sucesso");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError("Erro ao salvar produto");
 		}
@@ -99,13 +114,16 @@ public class ProdutoBean implements Serializable {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 
+			Path arquivo = Paths.get("C:/Users/jorge/Documents/Upload/" + produto.getCodigo() + ".png");
+			Files.deleteIfExists(arquivo);
+			
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			produtoDAO.excluir(produto);
 
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Sucesso ao excluir produto");
-		} catch (RuntimeException erro) {
+		} catch (RuntimeException | IOException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError("Erro ao excluir produto");
 		}
@@ -116,13 +134,29 @@ public class ProdutoBean implements Serializable {
 
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
+			
+			produto.setCaminho("C:/Users/jorge/Documents/Upload/" + produto.getCodigo() + ".png");
+			
+			
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
 
 		} catch (RuntimeException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalInfo("Erro ao editar produto");
+		}
+
+	}
+
+	public void upload(FileUploadEvent evento) {
+		try {
+			UploadedFile arquivoUpload = evento.getFile();
+			Path arquivoTemp = Files.createTempFile(null, null);
+			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
+			produto.setCaminho(arquivoTemp.toString());
+		} catch (IOException erro) {
+			Messages.addGlobalInfo("Erro ao salvar a foto");
+			erro.printStackTrace();
 		}
 
 	}

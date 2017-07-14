@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Vendas</title>
+</h:head>
+<h:body>
+	<h:form id="formulario">
+		<p:growl id="mensagem" />
+
+		<p:panel header="Produtos">
+			<p:dataTable id="tabelaProduto"
+				emptyMessage="Nenhum registro encontrado" paginator="true"
+				value="#{vendaBean.produtos}" var="produto" rows="3">
+
+
+				<p:column headerText="Descrição" sortBy="#{produto.descricao}"
+					filterBy="#{produto.descricao}">
+					<p:outputLabel value="#{produto.descricao}" />
+
+				</p:column>
+				<p:column headerText="Quantidade">
+					<p:outputLabel value="#{produto.quantidade}" />
+
+				</p:column>
+				<p:column headerText="Preço" sortBy="#{produto.preco}">
+					<p:outputLabel value="#{produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:outputLabel>
+
+				</p:column>
+				<p:column headerText="Fabricante"
+					sortBy="#{produto.fabricante.descricao}"
+					filterBy="#{produto.fabricante.descricao}">
+					<p:outputLabel value="#{produto.fabricante.descricao}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{vendaBean.adicionar}"
+						update=":formulario:tabelaCarrinho">
+
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Carrinho">
+			<p:dataTable id="tabelaCarrinho" value="#{vendaBean.vendasItem}"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				var="itemVenda" rows="3">
+
+
+				<p:column headerText="Descrição">
+					<p:outputLabel value="#{itemVenda.produto.descricao}" />
+
+				</p:column>
+
+				<p:column headerText="Preço Un.">
+					<p:outputLabel value="#{itemVenda.produto.preco}">
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="Qtde.">
+					<p:outputLabel value="#{itemVenda.quantidade}" />
+				</p:column>
+
+				<p:column headerText="Preço Parcial">
+					<p:outputLabel value="#{itemVenda.valorParcial}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-minus" actionListener="#{vendaBean.remover}" update=":formulario:tabelaCarrinho">
+						<f:attribute name="itemSelcionado" value="#{itemVenda}"/>	
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+
+		<p:panel header="Produtos">
+		</p:panel>
+	</h:form>
+</h:body>
+</html>
